@@ -1,0 +1,10 @@
+react_example_dev:
+  version: 1.x
+  js:
+    "http://localhost:3000/static/js/main.js":
+      { type: external, minified: true, async: true }
+
+react_example_prod:
+  version: 1.x
+  js:
+    js/react_example/build/static/js/main.js: { preprocess: false, async: true }
