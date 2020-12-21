@@ -4,11 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const mount = document.getElementById('react-example');
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App data={JSON.parse(mount.dataset.drupal)} />
   </React.StrictMode>,
-  document.getElementById('root')
+  mount
 );
 
 // If you want to start measuring performance in your app, pass a function

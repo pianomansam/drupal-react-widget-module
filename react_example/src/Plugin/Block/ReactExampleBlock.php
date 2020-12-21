@@ -23,13 +23,21 @@ class ReactExampleBlock extends BlockBase {
     $build[] = [
       '#type' => 'container',
       '#attributes' => [
-        'id' => 'root',
+        'id' => 'react-example',
+        'data-drupal' => json_encode([
+          'time' => time(),
+        ]),
       ],
       '#attached' => [
         'library' => [
           empty($_ENV['PLATFORM_PROJECT'])
             ? 'react_example/react_example_dev'
             : 'react_example/react_example_prod',
+        ],
+        'drupalSettings' => [
+          'react_example' => [
+            'time' => time(),
+          ],
         ],
       ],
     ];
