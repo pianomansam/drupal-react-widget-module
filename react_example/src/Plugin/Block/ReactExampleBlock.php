@@ -3,6 +3,7 @@
 namespace Drupal\react_example\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Provides a 'ReactExampleBlock' block.
@@ -17,13 +18,45 @@ class ReactExampleBlock extends BlockBase {
   /**
    * {@inheritdoc}
    */
+  public function blockForm($form, FormStateInterface $form_state) {
+    $form = parent::blockForm($form, $form_state);
+
+    $form['message'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Message'),
+      '#default_value' => $this->configuration['message'] ?? '',
+      '#required' => TRUE,
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function blockSubmit($form, FormStateInterface $form_state) {
+    $this->configuration['message'] = $form_state->getValue('message');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration() {
+    return [
+      'message' => '',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function build() {
     $build = [];
 
-    $build[] = [
+    $container = [
       '#type' => 'container',
       '#attributes' => [
-        'id' => 'react-example',
+        'class' => 'react-example',
         'data-drupal' => json_encode([
           'time' => time(),
         ]),
@@ -41,6 +74,8 @@ class ReactExampleBlock extends BlockBase {
         ],
       ],
     ];
+
+    $build[] = $container;
 
     return $build;
   }
