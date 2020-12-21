@@ -51,6 +51,7 @@ class ReactExampleBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    $message = $this->configuration['message'];
     $build = [];
 
     $container = [
@@ -58,7 +59,7 @@ class ReactExampleBlock extends BlockBase {
       '#attributes' => [
         'class' => 'react-example',
         'data-drupal' => json_encode([
-          'time' => time(),
+          'message' => $message,
         ]),
       ],
       '#attached' => [
