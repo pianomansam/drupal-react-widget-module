@@ -36,6 +36,7 @@ class ReactExampleBlock extends BlockBase {
    */
   public function blockSubmit($form, FormStateInterface $form_state) {
     $this->configuration['message'] = $form_state->getValue('message');
+    $this->configuration['block_id'] = $form['id']['#value'];
   }
 
   /**
@@ -43,6 +44,7 @@ class ReactExampleBlock extends BlockBase {
    */
   public function defaultConfiguration() {
     return [
+      'block_id' => NULL,
       'message' => '',
     ];
   }
@@ -51,6 +53,7 @@ class ReactExampleBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
+    $block_id = $this->configuration['block_id'];
     $message = $this->configuration['message'];
     $build = [];
 
@@ -61,6 +64,7 @@ class ReactExampleBlock extends BlockBase {
         'data-drupal' => json_encode([
           'message' => $message,
         ]),
+        'data-id' => $block_id,
       ],
       '#attached' => [
         'library' => [
@@ -68,12 +72,11 @@ class ReactExampleBlock extends BlockBase {
             ? 'react_example/react_example_dev'
             : 'react_example/react_example_prod',
         ],
-        'drupalSettings' => [
-          'react_example' => [
-            'time' => time(),
-          ],
-        ],
       ],
+    ];
+
+    $container['#attached']['drupalSettings']['react_example'][$block_id] = [
+      'message' => $message,
     ];
 
     $build[] = $container;

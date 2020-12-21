@@ -11,7 +11,8 @@ for (let element of elements) {
     <React.StrictMode>
       {/* <App data={JSON.parse(mount.dataset.drupal)} /> */}
       {/* <App data={drupalSettings.react_example} /> */}
-      <App data={element.dataset.drupal} />
+      {/* <App data={element.dataset.drupal} /> */}
+      <App data={drupalSettings.react_example[element.dataset['id']]} />
     </React.StrictMode>,
     element
   );
