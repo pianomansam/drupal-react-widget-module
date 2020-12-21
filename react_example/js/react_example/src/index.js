@@ -8,7 +8,8 @@ const mount = document.getElementById('react-example');
 
 ReactDOM.render(
   <React.StrictMode>
-    <App data={JSON.parse(mount.dataset.drupal)} />
+    {/* <App data={JSON.parse(mount.dataset.drupal)} /> */}
+    <App data={drupalSettings.react_example} />
   </React.StrictMode>,
   mount
 );
